@@ -1,25 +1,36 @@
+import fs from 'node:fs'
 import Fastify from "fastify"
-import {} from './database-memory.js'
+import { } from './database-memory.js'
 //import { DatabaseMemory } from "./database-memory.js"
 import { DatabasePostgres } from "./database-postgres.js"
+import path from 'node:path'
+import fastifyStatic from '@fastify/static'
+import { fileURLToPath } from 'node:url'
+
 
 const server = Fastify()
-
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 //const database = new DatabaseMemory()
 const database = new DatabasePostgres
 
+server.register(fastifyStatic, {
+    root: path.join(__dirname, 'public'),
+    prefix: '/',
+})
+
 //REQUEST BODY
 
- server.post('/videos', async (req, reply) => {
+server.post('/videos', async (req, reply) => {
     const { title, description, duration } = req.body
-    
+
     await database.create({
         //short sintaxe 
         title,
         description,
         duration
     })
-  
+
     return reply.status(201).send()
 })
 
@@ -27,8 +38,8 @@ server.get('/videos', async (req) => {
     const search = req.query.search
 
     const videos = await database.list(search)
-    
-    
+
+
     return videos
 })
 
@@ -36,10 +47,10 @@ server.put('/videos/:id', async (req, reply) => {
     const videoId = req.params.id
     const { title, description, duration } = req.body
 
-   await database.update(videoId, {
-         title,
-         description,
-         duration
+    await database.update(videoId, {
+        title,
+        description,
+        duration
     })
 
     return reply.status(204).send()
@@ -51,6 +62,11 @@ server.delete('/videos/:id', async (req, reply) => {
     await database.delete(videoId)
 
     return reply.status(204).send()
+})
+
+server.get('/', (request, reply) => {
+    const stream = fs.createReadStream('./index.html')
+    return reply.type('text/html').send(stream)
 })
 
 server.listen({

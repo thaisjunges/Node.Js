@@ -1,0 +1,30 @@
+html, body {
+    /* Troque height: 100% por min-height: 100vh */
+    min-height: 100vh;
+    background-image: url("images/img-fundo.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* Centraliza a imagem para não cortar partes importantes */
+    background-position: center;
+    /* Deixa a imagem fixa enquanto você rola a página */
+    background-attachment: fixed; 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #121212;
+    color: white;
+}
+
+  *, *::before, *::after {
+    box-sizing: inherit;
+  }
+
+.logo-nav{
+    width: 30px;
+    height: 30px;
+}
+
+.card-body{
+  background-color: antiquewhite;
+}

@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fastify/static": "^9.0.0",
     "@neondatabase/serverless": "^1.0.2",
     "dotenv": "^17.2.3",
     "fastify": "^5.6.2",

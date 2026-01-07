@@ -7,8 +7,10 @@ Content-Type: application/json
     "duration": 180
 }
 
+
 ####
 GET http://localhost:3333/videos
+
 
 ####
 PUT http://localhost:3333/videos/6b60295c-9c2e-4707-8673-36bc508f04d7
@@ -19,6 +21,7 @@ Content-Type: application/json
     "description": "Esse é o video 02",
     "duration": 180
 }
+
 
 ####
 DELETE http://localhost:3333/videos/d2ee13ad-1471-430f-a018-35098d8c18f4
