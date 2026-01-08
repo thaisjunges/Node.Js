@@ -1,3 +1,4 @@
+
 async function carregarVideos() {
     const response = await fetch('http://localhost:3333/videos');
     const videos = await response.json();
@@ -15,9 +16,9 @@ async function carregarVideos() {
     <p class="card-text">${video.description}</p>
     <p class="card-text -2">${video.duration}</p>
     <a href="#" class="btn btn-primary">Assistir</a>
-     <button type="button" onclick="deletarVideos('${video.id}')">Eve</button>
-      <button type="button" >Buda</button>
-  </div>
+     <button type="button" class="btn btn-primary" onclick="deletarVideos('${video.id}')">Excluir</button>
+     <button type="button" class="btn btn-primary" onclick="atualizar('${video.id}')">Atualizar</button>
+     </div>
 </div>
 </div>
         `;
@@ -40,4 +41,38 @@ async function carregarVideos() {
     }
       }
 
-    carregarVideos();
+      async function atualizar(id){
+        const novoTitulo = prompt("Novo Titulo: ");
+        const novaDescricao = prompt("Nova descrição: ");
+        const novaDuracao = Number(prompt("Nova duração: "));
+
+        const dadosAtualizados = {
+          title: novoTitulo,
+          description: novaDescricao,
+          duration: novaDuracao
+        }
+
+        try{
+          const response = await fetch(`http://localhost:3333/videos/${id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dadosAtualizados) //Transforma o objeto em texto JSON
+          });
+
+          if(response.ok){
+            console.log('Video atualizado com sucesso');
+            carregarVideos();
+          } else{
+            console.log('Erro ao atualizar');
+            alert('Erro ao atualizar o video')
+          }
+        } catch{
+          console.error('Erro:', error);
+          
+          alert("Erro ao conectar com o servidor")
+        }
+      }
+       
+   
