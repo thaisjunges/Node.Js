@@ -64,9 +64,13 @@ server.delete('/videos/:id', async (req, reply) => {
     return reply.status(204).send()
 })
 
-server.get('/', (request, reply) => {
-    const stream = fs.createReadStream('./index.html')
-    return reply.type('text/html').send(stream)
+server.get('/', async () => {
+  return {
+    project: "Video CRUD API",
+    author: "Thais Junges",
+    stack: ["Node.js", "Fastify", "PostgreSQL", "Neon"],
+    status: "running"
+  }
 })
 
 server.listen({

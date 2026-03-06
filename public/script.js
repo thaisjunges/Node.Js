@@ -33,12 +33,14 @@ async function carregarVideos() {
       
       if(response.ok){
         console.log('Video Deletado');
+        carregarVideos();
       } else{
         console.error('Erro ao deleter'); 
       }
-    } catch{
-      alert("Erro ao conectar com o sevidor");
-    }
+    } catch (error) { 
+    console.error('Erro:', error);
+    alert("Erro ao conectar com o servidor");
+}
       }
 
       async function atualizar(id){
@@ -75,4 +77,6 @@ async function carregarVideos() {
         }
       }
        
-   
+carregarVideos();
+window.deletarVideos = deletarVideos;
+window.atualizar = atualizar;
